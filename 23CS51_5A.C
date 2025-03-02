@@ -10,7 +10,7 @@
 main()
 {
     char c;
-    intshmid;
+    int shmid;
     key_t key = 2013;
     char *shm, *s;
     if ((shmid = shmget(key, shmsize, IPC_CREAT | 0666)) < 0)
@@ -46,7 +46,7 @@ Client :
 #define shmsize 27
     main()
 {
-    intshmid;
+    int shmid;
     key_t key = 2013;
     char *shm, *s;
     if ((shmid = shmget(key, shmsize, 0666)) < 0)
