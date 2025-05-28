@@ -1,5 +1,222 @@
 <!DOCTYPE html>
 
+/* Super! Since you want simple, last-minute prep for tomorrow's model lab, here’s a quick and easy explanation + Python code for each of the 12 AIML experiments in your file.
+
+
+---
+
+1. BFS – Breadth First Search (Uninformed Search)
+
+Idea: Explore all neighbors before going deeper.
+
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+
+    while queue:
+        node = queue.popleft()
+        if node not in visited:
+            print(node, end=' ')
+            visited.add(node)
+            queue.extend(graph[node])
+
+graph = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F'],
+    'D': [], 'E': [], 'F': []
+}
+bfs(graph, 'A')
+
+
+---
+
+2. DFS – Depth First Search (Uninformed Search)
+
+Idea: Explore as deep as possible before backtracking.
+
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    print(start, end=' ')
+    for neighbor in graph[start]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+
+dfs(graph, 'A')
+
+
+---
+
+3. A Search (Informed Search)*
+
+Idea: Combines cost + heuristic to find best path.
+
+from queue import PriorityQueue
+
+def a_star(start, goal, graph, heuristics):
+    pq = PriorityQueue()
+    pq.put((0, start))
+    visited = set()
+
+    while not pq.empty():
+        (cost, node) = pq.get()
+        if node == goal:
+            print(f"Reached {goal}")
+            return
+        if node not in visited:
+            visited.add(node)
+            for neighbor, weight in graph[node]:
+                total_cost = cost + weight + heuristics[neighbor]
+                pq.put((total_cost, neighbor))
+
+graph = {
+    'A': [('B', 1), ('C', 3)],
+    'B': [('D', 1)],
+    'C': [('D', 1)],
+    'D': []
+}
+heuristics = {'A': 3, 'B': 2, 'C': 1, 'D': 0}
+a_star('A', 'D', graph, heuristics)
+
+
+---
+
+4. Naive Bayes (Data Analysis)
+
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+X = [[1,20], [2,21], [3,22], [4,23]]
+y = [0, 0, 1, 1]
+model = GaussianNB()
+model.fit(X, y)
+print(model.predict([[2, 22]]))
+
+
+---
+
+5. Bayesian Network (Probability Relationship)
+
+Install: pip install pgmpy
+
+from pgmpy.models import BayesianNetwork
+from pgmpy.factors.discrete import TabularCPD
+
+model = BayesianNetwork([('Rain', 'Traffic')])
+cpd_rain = TabularCPD('Rain', 2, [[0.7], [0.3]])
+cpd_traffic = TabularCPD('Traffic', 2, [[0.9, 0.2], [0.1, 0.8]], evidence=['Rain'], evidence_card=[2])
+model.add_cpds(cpd_rain, cpd_traffic)
+print(model.check_model())
+
+
+---
+
+6. Regression Model
+
+from sklearn.linear_model import LinearRegression
+
+X = [[1], [2], [3], [4]]
+y = [2, 4, 6, 8]
+model = LinearRegression()
+model.fit(X, y)
+print(model.predict([[5]]))
+
+
+---
+
+7. Decision Tree
+
+from sklearn.tree import DecisionTreeClassifier
+
+X = [[0, 0], [1, 1]]
+y = [0, 1]
+clf = DecisionTreeClassifier()
+clf.fit(X, y)
+print(clf.predict([[0.5, 0.5]]))
+
+
+---
+
+8. Random Forest
+
+from sklearn.ensemble import RandomForestClassifier
+
+X = [[0, 0], [1, 1]]
+y = [0, 1]
+clf = RandomForestClassifier()
+clf.fit(X, y)
+print(clf.predict([[0.5, 0.5]]))
+
+
+---
+
+9. SVM – Support Vector Machine
+
+from sklearn import svm
+
+X = [[0, 0], [1, 1]]
+y = [0, 1]
+clf = svm.SVC()
+clf.fit(X, y)
+print(clf.predict([[0.8, 0.8]]))
+
+
+---
+
+10. Ensembling Techniques (Voting Classifier)
+
+from sklearn.ensemble import VotingClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+
+model1 = LogisticRegression()
+model2 = DecisionTreeClassifier()
+model3 = SVC(probability=True)
+
+X = [[0, 0], [1, 1]]
+y = [0, 1]
+
+ensemble = VotingClassifier(estimators=[
+    ('lr', model1), ('dt', model2), ('svc', model3)], voting='soft')
+ensemble.fit(X, y)
+print(ensemble.predict([[0.5, 0.5]]))
+
+
+---
+
+11. Clustering (KMeans)
+
+from sklearn.cluster import KMeans
+
+X = [[1, 2], [1, 4], [1, 0], [10, 2], [10, 4], [10, 0]]
+kmeans = KMeans(n_clusters=2)
+kmeans.fit(X)
+print(kmeans.labels_)
+
+
+---
+
+12. Neural Network (Pattern Optimization)
+
+from sklearn.neural_network import MLPClassifier
+
+X = [[0., 0.], [1., 1.]]
+y = [0, 1]
+clf = MLPClassifier(hidden_layer_sizes=(5,), max_iter=1000)
+clf.fit(X, y)
+print(clf.predict([[0.5, 0.5]]))
+
+
+---
+
+If you'd like, I can compile this as a PDF or DOCX file for easy revision. Would you like that? */
+
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
